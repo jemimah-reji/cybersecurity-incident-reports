@@ -1,0 +1,22 @@
+# Cybersecurity Incident Report: DNS Traffic Analysis
+
+## Part 1: Summary of the Problem
+
+Using the tcpdump log, we identified that the client machine attempted to resolve the domain `yummyrecipesforme.com` via DNS, using the UDP protocol. The DNS server responded with an ICMP error: `udp port 53 unreachable`. Port 53 is used by DNS services, so this suggests that the DNS server was either unavailable or not responding.
+
+This issue was confirmed when customers reported receiving a “destination port unreachable” error while trying to visit the site. The repeated ICMP errors in the logs support this conclusion.
+
+## Part 2: Analysis and Cause
+
+The issue occurred around 1:24 p.m., confirmed by log timestamps. The UDP requests to the DNS server failed, and ICMP error messages were returned, indicating port 53 was not reachable.
+
+The cause may be:
+- The DNS server being down.
+- Firewall blocking port 53.
+- A Denial of Service (DoS) attack targeting the DNS server.
+
+## Next Steps
+
+- Verify DNS server status and logs.
+- Ensure firewall rules are not blocking DNS requests.
+- Monitor for traffic spikes or suspicious activity.
